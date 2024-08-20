@@ -6,30 +6,29 @@
     <title>Verification</title>
     <script>
         window.onload = function() {
-            const params = new URLSearchParams(window.location.search);
-            const userId = params.get('user_id');
-            const username = params.get('username');
-
-            if (userId && username) {
-                // Send the data to a backend service (optional)
-                fetch('https://your-backend-service.com/verify', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ userId, username }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('status').innerText = 'Verification successful!';
-                })
-                .catch(error => {
-                    document.getElementById('status').innerText = 'Verification failed.';
-                    console.error('Error:', error);
-                });
-            } else {
-                document.getElementById('status').innerText = 'Invalid verification link.';
+            // Function to get query parameters
+            function getQueryParams() {
+                const params = new URLSearchParams(window.location.search);
+                return {
+                    userId: params.get('user_id'),
+                    username: params.get('username')
+                };
             }
+
+            // Handle verification
+            function handleVerification() {
+                const { userId, username } = getQueryParams();
+
+                if (userId && username) {
+                    // Here you might send data to a backend or database
+                    // For demonstration, we're just showing a success message
+                    document.getElementById('status').innerText = `Verification successful for ${username}!`;
+                } else {
+                    document.getElementById('status').innerText = 'Invalid verification link.';
+                }
+            }
+
+            handleVerification();
         };
     </script>
 </head>
